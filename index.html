@@ -113,17 +113,8 @@ let branches = [];
 
 function generateTree(x,y,len,angle){
 
-if(len < 7){
-
-// create multiple flowers at tips
-for(let i=0;i<3;i++){
-branches.push({
-type:"flower",
-x:x+(Math.random()*6-3),
-y:y+(Math.random()*6-3)
-});
-}
-
+if(len < 8){
+branches.push({type:"flower",x,y});
 return;
 }
 
@@ -132,21 +123,14 @@ let y2 = y - len*Math.sin(angle);
 
 branches.push({type:"branch",x1:x,y1:y,x2,y2});
 
-// smoother randomness
-let rand = Math.random()*0.25 + 0.2;
+let rand = 0.45;   // fixed angle like turtle
 
-// main branches
-generateTree(x2,y2,len*0.78,angle+rand);
-generateTree(x2,y2,len*0.78,angle-rand);
-
-// extra branch to fill gaps
-if(len > 25){
-generateTree(x2,y2,len*0.65,angle+(Math.random()*0.4-0.2));
-}
+generateTree(x2,y2,len*0.75,angle+rand);
+generateTree(x2,y2,len*0.75,angle-rand);
 
 }
 
-generateTree(450,600,140,Math.PI/2);
+generateTree(450,600,130,Math.PI/2);
 
 let i = 0;
 
@@ -176,15 +160,15 @@ if(b.type === "flower"){
 ctx.fillStyle="white";
 
 ctx.beginPath();
-ctx.arc(b.x,b.y,2.8,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.5,0,Math.PI*2);
 ctx.fill();
 
 }
 
 i++;
 
-// slightly slower animation
-setTimeout(draw,1);
+// faster but still smooth
+setTimeout(draw,6);
 
 }
 
