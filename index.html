@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
@@ -70,6 +70,117 @@ ctx.fillStyle="hotpink";
 ctx.font="24px Arial";
 ctx.textAlign="center";
 ctx.fillText("A Little Special Gift for You, Tithi 💫🌸",400,590);
+
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Flower For You ❤️</title>
+
+<style>
+
+body{
+background:black;
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+height:100vh;
+}
+
+canvas{
+background:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas" width="800" height="600"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let branches = [];
+
+function generateTree(x,y,len,angle){
+
+if(len < 10){
+branches.push({type:"flower",x,y});
+return;
+}
+
+let x2 = x + len*Math.cos(angle);
+let y2 = y - len*Math.sin(angle);
+
+branches.push({type:"branch",x1:x,y1:y,x2,y2});
+
+let rand = Math.random()*0.3 + 0.35;
+
+generateTree(x2,y2,len*0.75,angle+rand);
+generateTree(x2,y2,len*0.75,angle-rand);
+
+}
+
+generateTree(400,550,110,Math.PI/2);
+
+let i = 0;
+
+function draw(){
+
+if(i >= branches.length){
+showMessage();
+return;
+}
+
+let b = branches[i];
+
+if(b.type === "branch"){
+ctx.strokeStyle="white";
+ctx.lineWidth=2;
+
+ctx.beginPath();
+ctx.moveTo(b.x1,b.y1);
+ctx.lineTo(b.x2,b.y2);
+ctx.stroke();
+}
+
+if(b.type === "flower"){
+ctx.fillStyle="white";
+ctx.beginPath();
+ctx.arc(b.x,b.y,3,0,Math.PI*2);
+ctx.fill();
+}
+
+i++;
+
+setTimeout(draw,15);
+
+}
+
+function showMessage(){
+
+ctx.fillStyle="hotpink";
+ctx.font="26px Arial";
+ctx.textAlign="center";
+
+ctx.fillText(
+"A Little Special Gift for You, Tithi 💫🌸",
+400,
+590
+);
+
+}
+
+draw();
 
 </script>
 
