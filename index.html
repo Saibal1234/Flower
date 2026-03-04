@@ -1,88 +1,9 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-<title>A Flower For You ❤️</title>
-
-<style>
-body{
-background:black;
-margin:0;
-display:flex;
-align-items:center;
-justify-content:center;
-flex-direction:column;
-height:100vh;
-color:hotpink;
-font-family:Arial;
-}
-
-canvas{
-background:black;
-}
-</style>
-
-</head>
-
-<body>
-
-<canvas id="canvas" width="800" height="600"></canvas>
-
-<script>
-
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
-function flower(x,y){
-ctx.fillStyle="white";
-ctx.beginPath();
-ctx.arc(x,y,3,0,Math.PI*2);
-ctx.fill();
-}
-
-function tree(x,y,len,angle){
-
-if(len < 10){
-flower(x,y);
-return;
-}
-
-let x2 = x + len*Math.cos(angle);
-let y2 = y - len*Math.sin(angle);
-
-ctx.strokeStyle="#8B4513";
-ctx.lineWidth=2;
-
-ctx.beginPath();
-ctx.moveTo(x,y);
-ctx.lineTo(x2,y2);
-ctx.stroke();
-
-let rand = Math.random()*0.3 + 0.35;
-
-tree(x2,y2,len*0.75,angle+rand);
-tree(x2,y2,len*0.75,angle-rand);
-
-}
-
-tree(400,550,110,Math.PI/2);
-
-ctx.fillStyle="hotpink";
-ctx.font="24px Arial";
-ctx.textAlign="center";
-ctx.fillText("A Little Special Gift for You, Tithi 💫🌸",400,590);
-
-</script>
-
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
 
 <style>
-
 body{
 background:black;
 margin:0;
@@ -96,7 +17,6 @@ height:100vh;
 canvas{
 background:black;
 }
-
 </style>
 </head>
 
@@ -113,7 +33,7 @@ let branches = [];
 
 function generateTree(x,y,len,angle){
 
-if(len < 8){
+if(len < 9){
 branches.push({type:"flower",x,y});
 return;
 }
@@ -121,16 +41,23 @@ return;
 let x2 = x + len*Math.cos(angle);
 let y2 = y - len*Math.sin(angle);
 
-branches.push({type:"branch",x1:x,y1:y,x2,y2});
+branches.push({
+type:"branch",
+x1:x,
+y1:y,
+x2:x2,
+y2:y2
+});
 
-let rand = 0.45;   // fixed angle like turtle
+let branchAngle = Math.PI/6; // 30 degrees like turtle
 
-generateTree(x2,y2,len*0.75,angle+rand);
-generateTree(x2,y2,len*0.75,angle-rand);
+generateTree(x2,y2,len*0.75,angle + branchAngle);
+generateTree(x2,y2,len*0.75,angle - branchAngle);
 
 }
 
-generateTree(450,600,130,Math.PI/2);
+// slight left tilt like your turtle output
+generateTree(450,600,130,Math.PI/2 + 0.15);
 
 let i = 0;
 
@@ -160,15 +87,14 @@ if(b.type === "flower"){
 ctx.fillStyle="white";
 
 ctx.beginPath();
-ctx.arc(b.x,b.y,2.5,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.4,0,Math.PI*2);
 ctx.fill();
 
 }
 
 i++;
 
-// faster but still smooth
-setTimeout(draw,6);
+setTimeout(draw,6); // fast but smooth
 
 }
 
