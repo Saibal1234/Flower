@@ -185,7 +185,24 @@ generateTree(x2,y2,len*0.75,angle - branchAngle);
 }
 
 // slight left tilt like turtle version
-generateTree(450,600,130,Math.PI/2 );
+// draw straight trunk first
+let trunkX = 450;
+let trunkY = 600;
+let trunkLength = 100;
+
+let trunkTopX = trunkX;
+let trunkTopY = trunkY - trunkLength;
+
+branches.push({
+type:"branch",
+x1:trunkX,
+y1:trunkY,
+x2:trunkTopX,
+y2:trunkTopY
+});
+
+// start branching from trunk top
+generateTree(trunkTopX,trunkTopY,120,Math.PI/2);
 
 let i = 0;
 
@@ -222,7 +239,7 @@ ctx.fill();
 
 i++;
 
-setTimeout(draw,10);
+setTimeout(draw,6);
 
 }
 
