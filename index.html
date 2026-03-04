@@ -34,7 +34,14 @@ let branches = [];
 function generateTree(x,y,len,angle){
 
 if(len < 9){
+
+// main flower
 branches.push({type:"flower",x,y});
+
+// small nearby flowers (adds density but not blob)
+branches.push({type:"flower",x:x+Math.random()*3-1.5,y:y+Math.random()*3-1.5});
+branches.push({type:"flower",x:x+Math.random()*3-1.5,y:y+Math.random()*3-1.5});
+
 return;
 }
 
@@ -49,15 +56,32 @@ x2:x2,
 y2:y2
 });
 
-let branchAngle = Math.PI/6; // 30 degrees like turtle
+let branchAngle = Math.PI/6; // 30°
 
 generateTree(x2,y2,len*0.75,angle + branchAngle);
 generateTree(x2,y2,len*0.75,angle - branchAngle);
 
 }
 
-// slight left tilt like your turtle output
-generateTree(450,600,130,Math.PI/2 + 0.15);
+// slight left tilt like turtle version
+// draw straight trunk first
+let trunkX = 450;
+let trunkY = 600;
+let trunkLength = 100;
+
+let trunkTopX = trunkX;
+let trunkTopY = trunkY - trunkLength;
+
+branches.push({
+type:"branch",
+x1:trunkX,
+y1:trunkY,
+x2:trunkTopX,
+y2:trunkTopY
+});
+
+// start branching from trunk top
+generateTree(trunkTopX,trunkTopY,120,Math.PI/2);
 
 let i = 0;
 
@@ -87,14 +111,14 @@ if(b.type === "flower"){
 ctx.fillStyle="white";
 
 ctx.beginPath();
-ctx.arc(b.x,b.y,2.4,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.3,0,Math.PI*2);
 ctx.fill();
 
 }
 
 i++;
 
-setTimeout(draw,6); // fast but smooth
+setTimeout(draw,6);
 
 }
 
