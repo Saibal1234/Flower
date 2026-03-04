@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
@@ -95,6 +95,134 @@ ctx.fill();
 i++;
 
 setTimeout(draw,6); // fast but smooth
+
+}
+
+function showMessage(){
+
+ctx.fillStyle="hotpink";
+ctx.font="28px Arial";
+ctx.textAlign="center";
+
+ctx.fillText(
+"A Little Special Gift for You, Tithi 💫🌸",
+450,
+630
+);
+
+}
+
+draw();
+
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Flower For You ❤️</title>
+
+<style>
+body{
+background:black;
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+height:100vh;
+}
+
+canvas{
+background:black;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas" width="900" height="650"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let branches = [];
+
+function generateTree(x,y,len,angle){
+
+if(len < 9){
+
+// main flower
+branches.push({type:"flower",x,y});
+
+// small nearby flowers (adds density but not blob)
+branches.push({type:"flower",x:x+Math.random()*3-1.5,y:y+Math.random()*3-1.5});
+branches.push({type:"flower",x:x+Math.random()*3-1.5,y:y+Math.random()*3-1.5});
+
+return;
+}
+
+let x2 = x + len*Math.cos(angle);
+let y2 = y - len*Math.sin(angle);
+
+branches.push({
+type:"branch",
+x1:x,
+y1:y,
+x2:x2,
+y2:y2
+});
+
+let branchAngle = Math.PI/6; // 30°
+
+generateTree(x2,y2,len*0.75,angle + branchAngle);
+generateTree(x2,y2,len*0.75,angle - branchAngle);
+
+}
+
+// slight left tilt like turtle version
+generateTree(450,600,130,Math.PI/2 + 0.15);
+
+let i = 0;
+
+function draw(){
+
+if(i >= branches.length){
+showMessage();
+return;
+}
+
+let b = branches[i];
+
+if(b.type === "branch"){
+
+ctx.strokeStyle="white";
+ctx.lineWidth=2;
+
+ctx.beginPath();
+ctx.moveTo(b.x1,b.y1);
+ctx.lineTo(b.x2,b.y2);
+ctx.stroke();
+
+}
+
+if(b.type === "flower"){
+
+ctx.fillStyle="white";
+
+ctx.beginPath();
+ctx.arc(b.x,b.y,2.3,0,Math.PI*2);
+ctx.fill();
+
+}
+
+i++;
+
+setTimeout(draw,6);
 
 }
 
