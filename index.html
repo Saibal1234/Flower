@@ -82,7 +82,6 @@ ctx.fillText("A Little Special Gift for You, Tithi 💫🌸",400,590);
 <title>A Flower For You ❤️</title>
 
 <style>
-
 body{
 background:black;
 margin:0;
@@ -102,7 +101,7 @@ background:black;
 
 <body>
 
-<canvas id="canvas" width="800" height="600"></canvas>
+<canvas id="canvas" width="900" height="650"></canvas>
 
 <script>
 
@@ -113,7 +112,7 @@ let branches = [];
 
 function generateTree(x,y,len,angle){
 
-if(len < 10){
+if(len < 6){
 branches.push({type:"flower",x,y});
 return;
 }
@@ -123,14 +122,14 @@ let y2 = y - len*Math.sin(angle);
 
 branches.push({type:"branch",x1:x,y1:y,x2,y2});
 
-let rand = Math.random()*0.3 + 0.35;
+let rand = Math.random()*0.25 + 0.25;
 
-generateTree(x2,y2,len*0.75,angle+rand);
-generateTree(x2,y2,len*0.75,angle-rand);
+generateTree(x2,y2,len*0.78,angle+rand);
+generateTree(x2,y2,len*0.78,angle-rand);
 
 }
 
-generateTree(400,550,110,Math.PI/2);
+generateTree(450,600,140,Math.PI/2);
 
 let i = 0;
 
@@ -156,26 +155,26 @@ ctx.stroke();
 if(b.type === "flower"){
 ctx.fillStyle="white";
 ctx.beginPath();
-ctx.arc(b.x,b.y,3,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.5,0,Math.PI*2);
 ctx.fill();
 }
 
 i++;
 
-setTimeout(draw,15);
+requestAnimationFrame(draw);
 
 }
 
 function showMessage(){
 
 ctx.fillStyle="hotpink";
-ctx.font="26px Arial";
+ctx.font="28px Arial";
 ctx.textAlign="center";
 
 ctx.fillText(
 "A Little Special Gift for You, Tithi 💫🌸",
-400,
-590
+450,
+630
 );
 
 }
