@@ -119,7 +119,8 @@ draw();
 </body>
 </html> -->
 
-<!-- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
@@ -175,10 +176,12 @@ let branchAngle = Math.PI/6; // 30 degrees like turtle
 generateTree(x2,y2,len*0.75,angle + branchAngle);
 generateTree(x2,y2,len*0.75,angle - branchAngle);
 
+
+
 }
 
 // slight left tilt like your turtle output
-generateTree(450,600,130,Math.PI/2);
+generateTree(450,600,130,Math.PI/2 + 0.15);
 
 let i = 0;
 
@@ -237,104 +240,5 @@ draw();
 
 </script>
 
-</body>
-</html> -->
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>A Flower For You ❤️</title>
-<style>
-    body { background: black; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-    canvas { background: black; }
-</style>
-</head>
-<body>
-
-<canvas id="canvas" width="900" height="650"></canvas>
-
-<script>
-    
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-let branches = [];
-
-function generateTree(x, y, len, angle) {
-    if (len < 10) {
-        branches.push({ type: "flower", x, y });
-        return;
-    }
-
-    let x2 = x + len * Math.cos(angle);
-    let y2 = y - len * Math.sin(angle);
-
-    branches.push({ type: "branch", x1: x, y1: y, x2: x2, y2: y2 });
-
-    // 1. ADDING LEAVES: Occasionally add a leaf along the branch
-    if (len < 50 && Math.random() > 0.7) {
-        branches.push({ type: "leaf", x: x2, y: y2 });
-    }
-
-    // 2. FULL CURVE LOGIC: 
-    // We use 3 branches instead of 2 to create a dense, curved canopy
-    let spread = Math.PI / 4; // Total spread angle
-    
-    // Left branch
-    generateTree(x2, y2, len * 0.78, angle + spread + (Math.random() * 0.1));
-    // Center branch (creates the "full" look)
-    generateTree(x2, y2, len * 0.72, angle + (Math.random() - 0.5) * 0.2);
-    // Right branch
-    generateTree(x2, y2, len * 0.78, angle - spread - (Math.random() * 0.1));
-}
-
-// Start the tree
-generateTree(450, 620, 120, Math.PI / 2);
-
-let i = 0;
-function draw() {
-    if (i >= branches.length) {
-        showMessage();
-        return;
-    }
-
-    let b = branches[i];
-
-    if (b.type === "branch") {
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(b.x1, b.y1);
-        ctx.lineTo(b.x2, b.y2);
-        ctx.stroke();
-    } else if (b.type === "leaf") {
-        // Subtle green leaves
-        ctx.fillStyle = "rgba(100, 200, 100, 0.6)";
-        ctx.beginPath();
-        ctx.ellipse(b.x, b.y, 4, 2, Math.random() * Math.PI, 0, Math.PI * 2);
-        ctx.fill();
-    } else if (b.type === "flower") {
-        ctx.fillStyle = "white";
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, 2, 0, Math.PI * 2);
-        ctx.fill();
-    }
-
-    i++;
-    // Draw multiple items per frame for a smoother "growth" animation
-    for(let j=0; j<3; j++) i++; 
-    
-    requestAnimationFrame(draw);
-}
-
-function showMessage() {
-    ctx.fillStyle = "hotpink";
-    ctx.font = "28px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText("A Little Special Gift for You, Tithi 💫🌸", 450, 600);
-}
-
-draw();
-</script>
 </body>
 </html>
