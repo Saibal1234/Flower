@@ -119,7 +119,7 @@ draw();
 </body>
 </html> -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
@@ -197,4 +197,53 @@ ctx.fillText(
 </script>
 
 </body>
-</html>
+</html> -->
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function drawTree(x, y, len, angle){
+
+if(len < 6){
+ctx.beginPath();
+ctx.arc(x,y,2,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+return;
+}
+
+let x2 = x + len * Math.cos(angle);
+let y2 = y - len * Math.sin(angle);
+
+ctx.beginPath();
+ctx.moveTo(x,y);
+ctx.lineTo(x2,y2);
+ctx.strokeStyle="white";
+ctx.lineWidth=1;
+ctx.stroke();
+
+let newLen = len * 0.75;
+
+drawTree(x2,y2,newLen,angle + 0.30);
+drawTree(x2,y2,newLen,angle - 0.30);
+drawTree(x2,y2,newLen,angle);
+
+}
+
+ctx.lineCap="round";
+
+drawTree(450,600,120,Math.PI/2);
+
+ctx.fillStyle="hotpink";
+ctx.font="26px Arial";
+ctx.textAlign="center";
+
+ctx.fillText(
+"A Little Special Gift for You, Tithi 💫🌸",
+450,
+630
+);
+
+</script>
