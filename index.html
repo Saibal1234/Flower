@@ -301,15 +301,17 @@ let branches = [];
 
 function generateTree(x,y,len,angle){
 
-if(len < 6){
+if(len < 8){
 
-// dense leaves
-for(let i=0;i<4;i++){
+// dense flower cluster
+for(let i=0;i<6;i++){
+
 branches.push({
 type:"flower",
-x:x + Math.random()*6-3,
-y:y + Math.random()*6-3
+x:x + Math.random()*8-4,
+y:y + Math.random()*8-4
 });
+
 }
 
 return;
@@ -326,26 +328,32 @@ x2:x2,
 y2:y2
 });
 
-let rand = Math.random()*0.25 + 0.25;
+let branchAngle = Math.PI/5; // 36° curve
 
 // main branches
-generateTree(x2,y2,len*0.75,angle + rand);
-generateTree(x2,y2,len*0.75,angle - rand);
+generateTree(x2,y2,len*0.75,angle + branchAngle);
+generateTree(x2,y2,len*0.75,angle - branchAngle);
 
-// extra branch to create dense crown
-if(len > 20){
-generateTree(x2,y2,len*0.70,angle + (Math.random()*0.4-0.2));
+// extra branch to fill gaps
+if(len > 30){
+
+generateTree(
+x2,
+y2,
+len*0.7,
+angle + (Math.random()*0.6 - 0.3)
+);
+
 }
 
 }
 
-// straight trunk
+// trunk
 let trunkX = 450;
 let trunkY = 600;
-let trunkLength = 110;
 
-let trunkTopX = trunkX;
-let trunkTopY = trunkY - trunkLength;
+let trunkTopX = 450;
+let trunkTopY = 480;
 
 branches.push({
 type:"branch",
@@ -355,8 +363,8 @@ x2:trunkTopX,
 y2:trunkTopY
 });
 
-// generate canopy
-generateTree(trunkTopX,trunkTopY,130,Math.PI/2);
+// start canopy
+generateTree(trunkTopX,trunkTopY,140,Math.PI/2);
 
 let i = 0;
 
@@ -386,14 +394,14 @@ if(b.type === "flower"){
 ctx.fillStyle="white";
 
 ctx.beginPath();
-ctx.arc(b.x,b.y,2,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.2,0,Math.PI*2);
 ctx.fill();
 
 }
 
 i++;
 
-setTimeout(draw,2); // smooth animation
+setTimeout(draw,2);
 
 }
 
