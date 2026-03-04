@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <title>A Flower For You ❤️</title>
@@ -113,6 +113,86 @@ ctx.fillText(
 }
 
 draw();
+
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>A Flower For You ❤️</title>
+
+<style>
+body{
+background:black;
+margin:0;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+height:100vh;
+}
+
+canvas{
+background:black;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas" width="900" height="650"></canvas>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function drawTree(x, y, len, angle){
+
+if(len < 4){
+ctx.beginPath();
+ctx.arc(x,y,1.8,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+return;
+}
+
+let x2 = x + len * Math.cos(angle);
+let y2 = y - len * Math.sin(angle);
+
+ctx.beginPath();
+ctx.moveTo(x,y);
+ctx.lineTo(x2,y2);
+ctx.strokeStyle="white";
+ctx.lineWidth = 1.2;
+ctx.stroke();
+
+let newLen = len * 0.74;
+
+drawTree(x2,y2,newLen,angle + 0.35);
+drawTree(x2,y2,newLen,angle - 0.35);
+drawTree(x2,y2,newLen,angle + 0.12);
+drawTree(x2,y2,newLen,angle - 0.12);
+
+}
+
+ctx.lineCap="round";
+
+// starting point
+drawTree(450,600,130,Math.PI/2);
+
+ctx.fillStyle="hotpink";
+ctx.font="26px Arial";
+ctx.textAlign="center";
+
+ctx.fillText(
+"A Little Special Gift for You, Tithi 💫🌸",
+450,
+630
+);
 
 </script>
 
