@@ -82,6 +82,7 @@ ctx.fillText("A Little Special Gift for You, Tithi 💫🌸",400,590);
 <title>A Flower For You ❤️</title>
 
 <style>
+
 body{
 background:black;
 margin:0;
@@ -112,8 +113,17 @@ let branches = [];
 
 function generateTree(x,y,len,angle){
 
-if(len < 6){
-branches.push({type:"flower",x,y});
+if(len < 7){
+
+// create multiple flowers at tips
+for(let i=0;i<3;i++){
+branches.push({
+type:"flower",
+x:x+(Math.random()*6-3),
+y:y+(Math.random()*6-3)
+});
+}
+
 return;
 }
 
@@ -122,10 +132,17 @@ let y2 = y - len*Math.sin(angle);
 
 branches.push({type:"branch",x1:x,y1:y,x2,y2});
 
-let rand = Math.random()*0.25 + 0.25;
+// smoother randomness
+let rand = Math.random()*0.25 + 0.2;
 
+// main branches
 generateTree(x2,y2,len*0.78,angle+rand);
 generateTree(x2,y2,len*0.78,angle-rand);
+
+// extra branch to fill gaps
+if(len > 25){
+generateTree(x2,y2,len*0.65,angle+(Math.random()*0.4-0.2));
+}
 
 }
 
@@ -143,6 +160,7 @@ return;
 let b = branches[i];
 
 if(b.type === "branch"){
+
 ctx.strokeStyle="white";
 ctx.lineWidth=2;
 
@@ -150,18 +168,23 @@ ctx.beginPath();
 ctx.moveTo(b.x1,b.y1);
 ctx.lineTo(b.x2,b.y2);
 ctx.stroke();
+
 }
 
 if(b.type === "flower"){
+
 ctx.fillStyle="white";
+
 ctx.beginPath();
-ctx.arc(b.x,b.y,2.5,0,Math.PI*2);
+ctx.arc(b.x,b.y,2.8,0,Math.PI*2);
 ctx.fill();
+
 }
 
 i++;
 
-requestAnimationFrame(draw);
+// slightly slower animation
+setTimeout(draw,18);
 
 }
 
