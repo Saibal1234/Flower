@@ -138,12 +138,20 @@ height:100vh;
 canvas{
 background:black;
 }
+.top-message{
+color: hotpink;
+font-size: 32px;
+font-family: Arial;
+text-align: center;
+margin-top: 20px;
+margin-bottom: 10px;
+}
 </style>
 </head>
 
 <body>
-
-<audio id="bgmusic" autoplay loop>
+<h2 class="top-message">Happy Women's Day in Advance 🎊🎀</h2>
+<audio id="bgmusic" loop preload="auto">
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -244,9 +252,18 @@ ctx.fillText(
 
 draw();
 
-document.body.addEventListener("click", function(){
-document.getElementById("bgmusic").play();
-});
+const music = document.getElementById("bgmusic");
+
+function startMusicOnce(){
+  music.play().catch(()=>{});
+  document.removeEventListener("click", startMusicOnce);
+  document.removeEventListener("touchstart", startMusicOnce);
+  document.removeEventListener("keydown", startMusicOnce);
+}
+
+document.addEventListener("click", startMusicOnce);
+document.addEventListener("touchstart", startMusicOnce);
+document.addEventListener("keydown", startMusicOnce);
 
 </script>
 
