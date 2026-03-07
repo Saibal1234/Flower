@@ -255,15 +255,22 @@ draw();
 const music = document.getElementById("bgmusic");
 
 function startMusicOnce(){
-  music.play().catch(()=>{});
-  document.removeEventListener("click", startMusicOnce);
-  document.removeEventListener("touchstart", startMusicOnce);
-  document.removeEventListener("keydown", startMusicOnce);
+//   music.play().catch(()=>{});
+music.play().then(()=>{}).catch(()=>{});
+//   document.removeEventListener("click", startMusicOnce);
+//   document.removeEventListener("touchstart", startMusicOnce);
+//   document.removeEventListener("keydown", startMusicOnce);
+document.body.removeEventListener("click", startMusicOnce);
+  document.body.removeEventListener("touchstart", startMusicOnce);
+  document.body.removeEventListener("keydown", startMusicOnce);
 }
 
-document.addEventListener("click", startMusicOnce);
-document.addEventListener("touchstart", startMusicOnce);
-document.addEventListener("keydown", startMusicOnce);
+// document.addEventListener("click", startMusicOnce);
+// document.addEventListener("touchstart", startMusicOnce);
+// document.addEventListener("keydown", startMusicOnce);
+document.body.addEventListener("click", startMusicOnce);
+document.body.addEventListener("touchstart", startMusicOnce);
+document.body.addEventListener("keydown", startMusicOnce);
 
 </script>
 
