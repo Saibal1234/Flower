@@ -135,10 +135,7 @@ flex-direction:column;
 height:100vh;
 
 }
-@keyframes twinkle{
-from{opacity:0.2;}
-to{opacity:1;}
-}
+
 canvas{
 background:black;
 }
@@ -276,22 +273,6 @@ document.body.addEventListener("click", startMusicOnce);
 document.body.addEventListener("touchstart", startMusicOnce);
 document.body.addEventListener("keydown", startMusicOnce);
 
-
-for(let i=0;i<20;i++){
-
-let star=document.createElement("div");
-star.innerHTML="✨";
-star.style.position="absolute";
-star.style.left=Math.random()*100+"vw";
-star.style.top=Math.random()*100+"vh";
-star.style.fontSize=(10+Math.random()*20)+"px";
-star.style.opacity=Math.random();
-
-star.style.animation="twinkle 2s infinite alternate";
-
-document.body.appendChild(star);
-
-}
 </script>
 
 </body>
