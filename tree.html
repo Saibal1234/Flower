@@ -253,26 +253,34 @@ ctx.fillText(
 
 draw();
 
-const music = document.getElementById("bgmusic");
+// const music = document.getElementById("bgmusic");
 
-function startMusicOnce(){
+// function startMusicOnce(){
+
+
 //   music.play().catch(()=>{});
-music.play().then(()=>{}).catch(()=>{});
+//music.play().then(()=>{}).catch(()=>{});
 //   document.removeEventListener("click", startMusicOnce);
 //   document.removeEventListener("touchstart", startMusicOnce);
 //   document.removeEventListener("keydown", startMusicOnce);
-document.body.removeEventListener("click", startMusicOnce);
-  document.body.removeEventListener("touchstart", startMusicOnce);
-  document.body.removeEventListener("keydown", startMusicOnce);
-}
+// document.body.removeEventListener("click", startMusicOnce);
+//   document.body.removeEventListener("touchstart", startMusicOnce);
+//   document.body.removeEventListener("keydown", startMusicOnce);
+// }
 
 // document.addEventListener("click", startMusicOnce);
 // document.addEventListener("touchstart", startMusicOnce);
 // document.addEventListener("keydown", startMusicOnce);
-document.body.addEventListener("click", startMusicOnce);
-document.body.addEventListener("touchstart", startMusicOnce);
-document.body.addEventListener("keydown", startMusicOnce);
+// document.body.addEventListener("click", startMusicOnce);
+// document.body.addEventListener("touchstart", startMusicOnce);
+// document.body.addEventListener("keydown", startMusicOnce);
+const music = document.getElementById("bgmusic");
 
+const params = new URLSearchParams(window.location.search);
+
+if(params.get("play") === "true"){
+    music.play().catch(()=>{});
+}
 </script>
 
 </body>
