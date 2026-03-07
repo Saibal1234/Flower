@@ -4,37 +4,96 @@
 <title>Start Surprise</title>
 
 <style>
+
 body{
-background:black;
+margin:0;
+height:100vh;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-height:100vh;
-margin:0;
-font-family:Arial;
+background: radial-gradient(circle at top, #111, black);
+font-family: Arial;
+overflow:hidden;
 }
+
+/* Title */
+
+h1{
+color: hotpink;
+font-size:48px;
+text-align:center;
+text-shadow:0 0 10px hotpink,0 0 20px hotpink;
+margin-bottom:40px;
+}
+
+/* Button */
 
 button{
-padding:18px 35px;
+padding:18px 40px;
 font-size:24px;
 border:none;
-border-radius:12px;
-background:hotpink;
+border-radius:40px;
+background: linear-gradient(45deg, hotpink, deeppink);
 color:white;
 cursor:pointer;
+box-shadow:0 0 15px hotpink;
+transition:0.3s;
 }
-</style>
 
+button:hover{
+transform:scale(1.08);
+box-shadow:0 0 25px hotpink;
+}
+
+/* Floating petals */
+
+.petal{
+position:absolute;
+top:-20px;
+color:pink;
+font-size:20px;
+animation: fall linear infinite;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-20px) rotate(0deg);
+}
+100%{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+</style>
 </head>
 
 <body>
 
+<h1>✨ A Special Surprise For You ✨</h1>
+
 <button onclick="startSurprise()">Tap to Start the Surprise 🎁</button>
 
 <script>
+
 function startSurprise(){
-window.location.href = "tree.html";
+window.location.href="tree.html";
 }
+
+/* create floating petals */
+
+for(let i=0;i<20;i++){
+let petal=document.createElement("div");
+petal.innerHTML="🌸";
+petal.className="petal";
+
+petal.style.left=Math.random()*100+"vw";
+petal.style.animationDuration=(5+Math.random()*5)+"s";
+petal.style.fontSize=(15+Math.random()*20)+"px";
+
+document.body.appendChild(petal);
+}
+
 </script>
 
 </body>
