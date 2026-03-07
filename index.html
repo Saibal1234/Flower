@@ -210,10 +210,20 @@ opacity:0;
 
 <button onclick="startSurprise()">Tap to Start the Surprise 🎁</button>
 
+<audio id="bgmusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
 function startSurprise(){
-window.location.href="tree.html";
+let music = document.getElementById("bgmusic");
+music.play();
+
+setTimeout(()=>{
+window.location.href = "tree.html";
+},500);
+
 }
 
 /* create falling flowers */
